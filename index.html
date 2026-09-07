@@ -415,7 +415,8 @@ footer.legal {
 
 <script>
 (function () {
-  var ENDPOINT = "https://script.google.com/a/macros/lifegoeson.kr/s/AKfycbyzEC3oQ7WKc0l3GyZNp_E0kFRyuk2slUeNwVrR2eyAMCXFxKqnk8bj1FFCrru2mW3xfA/exec";
+  var ENDPOINT = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSdDL7DW4a2_OspOj_2visft0UaTa3XgeJzlx9tg0O8qgWvRBg/formResponse";
+  var ENTRY = { q1: "entry.1901701465", q2: "entry.220838772", q3: "entry.1438698992" };
 
   var state = { q1: null, q2: null };
   var form = document.getElementById('surveyForm');
@@ -445,12 +446,16 @@ footer.legal {
     submitBtn.disabled = true;
     submitBtn.textContent = '제출 중...';
 
-    var params = new URLSearchParams();
-    params.append('q1', state.q1);
-    params.append('q2', state.q2);
-    params.append('q3', document.getElementById('q3').value || '');
+    var fd = new FormData();
+    fd.append(ENTRY.q1, state.q1);
+    fd.append(ENTRY.q2, state.q2);
+    fd.append(ENTRY.q3, document.getElementById('q3').value || '');
+    fd.append('fvv', '1');
+    fd.append('pageHistory', '0');
+    fd.append('fbzx', '5897088540176478823');
+    fd.append('submissionTimestamp', '-1');
 
-    fetch(ENDPOINT + '?' + params.toString(), { method: 'GET', mode: 'no-cors' })
+    fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', body: fd })
       .catch(function () {})
       .finally(function () {
         document.getElementById('formView').hidden = true;
