@@ -450,7 +450,7 @@ footer.legal {
     params.append('q2', state.q2);
     params.append('q3', document.getElementById('q3').value || '');
 
-    fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', body: params })
+    fetch(ENDPOINT + '?' + params.toString(), { method: 'GET', mode: 'no-cors' })
       .catch(function () {})
       .finally(function () {
         document.getElementById('formView').hidden = true;
