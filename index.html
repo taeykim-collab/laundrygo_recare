@@ -445,12 +445,12 @@ footer.legal {
     submitBtn.disabled = true;
     submitBtn.textContent = '제출 중...';
 
-    var fd = new FormData();
-    fd.append('q1', state.q1);
-    fd.append('q2', state.q2);
-    fd.append('q3', document.getElementById('q3').value || '');
+    var params = new URLSearchParams();
+    params.append('q1', state.q1);
+    params.append('q2', state.q2);
+    params.append('q3', document.getElementById('q3').value || '');
 
-    fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', body: fd })
+    fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', body: params })
       .catch(function () {})
       .finally(function () {
         document.getElementById('formView').hidden = true;
